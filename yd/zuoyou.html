@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,ininial-scale=1,user-scalable=no"/>
+		<style>
+			html{
+				height: 100%;
+			}
+			body{
+				margin: 0;
+				padding: 0;
+				height: 100%;
+			}
+			.box{
+				height: 100%; 
+			}
+			ul{
+				width: 400%;
+				height: 200px;
+				list-style: none;
+				margin: 0;
+				padding: 0;
+				display: flex;
+			}
+			ul li:nth-child(1){
+				width: 100%;
+				background-color: #8A2BE2;
+				height: 200px;
+			}
+			
+			ul li:nth-child(2){
+				width: 100%;
+				background-color: aqua;
+				height: 200px;
+			}
+			ul li:nth-child(3){
+				width: 100%;
+				background-color: chartreuse;
+				height: 200px;
+			}
+			ul li:nth-child(4){
+				width: 100%;
+				background-color: fuchsia;
+				height: 200px;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="box">
+			<ul>
+				<li>111</li>
+				<li>222</li>
+				<li>333</li>
+				<li>444</li>
+			</ul>
+		</div>
+	</body>
+	<script src="js/hammer.js"></script>
+	<script>
+		var box = document.querySelector("#box");
+		box.addEventListener("touchstart",function(e){
+			box.innerHTML = e.touches.length;
+		})
+		box.addEventListener("touchmove",function(e){
+			box.targetTouches = e.targetTouches.length;
+		})
+		box.addEventListener("touchend",function(e){
+			console.log(e.changedTouches[0].pageX)
+		})
+		var hins = new Hammer(box);
+		hins.get('pinch').set({enable:true});
+		hins.on("panleft",function(){
+			console.log("swipe right")
+		})
+		var sc =1;
+		hins.on("pinchin",function(){
+			sc-=0.03;
+			box.style.transform = "scale("+sc+")"
+		})
+		hins.on("pinchin",function(){
+			sc+=0.03;
+			box.style.transform = "scale("+sc+")"
+		})
+		
+	</script>
+</html>
